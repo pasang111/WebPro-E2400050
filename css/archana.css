@@ -1,0 +1,25 @@
+/* =============================================
+   EduSkill - Archana Tharu
+   File: css/archana.css
+   BIT210 Web Programming Project
+   Day 1 - Initial stylesheet setup
+   ============================================= */
+
+/* 
+   This file will contain styles for:
+   - Provider signup page
+   - Provider dashboard
+   - Add course page
+   - Edit course page
+   - Course students page
+
+   Styles will be added as each page is built.
+*/
+
+/* ---- Placeholder base style ---- */
+/* Provider module color theme */
+:root {
+    --provider-primary: #2e7d32;
+    --provider-dark:    #1b5e20;
+    --provider-accent:  #f4a31a;
+}
