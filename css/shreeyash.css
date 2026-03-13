@@ -1,0 +1,26 @@
+/* =============================================
+   EduSkill - Shreeyash Pandey
+   File: css/shreeyash.css
+   BIT210 Web Programming Project
+   Day 1 - Initial stylesheet setup
+   ============================================= */
+
+/* 
+   This file will contain styles for:
+   - Student signup page
+   - Student dashboard
+   - Course listing page
+   - My courses page
+   - Enrollment page
+   
+   Styles will be added as each page is built.
+*/
+
+/* ---- Placeholder base style ---- */
+/* Student module color theme */
+:root {
+    --student-primary: #1a73e8;
+    --student-success: #2e7d32;
+    --student-warning: #e65100;
+    --student-danger:  #c62828;
+}
