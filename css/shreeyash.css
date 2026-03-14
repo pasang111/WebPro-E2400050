@@ -1,26 +1,144 @@
-/* =============================================
-   EduSkill - Shreeyash Pandey
-   File: css/shreeyash.css
-   BIT210 Web Programming Project
-   Day 1 - Initial stylesheet setup
-   ============================================= */
-
-/* 
-   This file will contain styles for:
-   - Student signup page
-   - Student dashboard
-   - Course listing page
-   - My courses page
-   - Enrollment page
-   
-   Styles will be added as each page is built.
-*/
-
-/* ---- Placeholder base style ---- */
-/* Student module color theme */
 :root {
-    --student-primary: #1a73e8;
+    --student-blue: #0056d2;
+    --student-light: #e0ecff;
     --student-success: #2e7d32;
     --student-warning: #e65100;
-    --student-danger:  #c62828;
+    --student-danger: #c62828;
+}
+
+/* DASHBOARD */
+
+.student-dashboard {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.dashboard-header {
+    background-color: #0056d2;
+    color: white;
+    padding: 30px 0;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.dashboard-header p {
+    font-size: 14px;
+    margin: 5px 0 0;
+    opacity: 0.85; /* slightly muted subtitle */
+}
+
+/* STAT CARDS */
+
+.stat-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #e0ecff; /* var(--student-light) */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #0056d2;
+    flex-shrink: 0; /* prevents icon from squishing on narrow layouts */
+}
+
+.stat-card-info h4 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.stat-card-info p {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+}
+
+/* COURSE CARDS */
+
+.course-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+    overflow: hidden; /* clips the colored image header to make rounded corners */
+    height: 100%;     /* stretches to fill grid/flex row equally */
+    transition: box-shadow 0.2s;
+}
+
+.course-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.course-card-img {
+    height: 150px;
+    background-color: #0056d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: rgba(255,255,255,0.6); /* ghost-white icon tint */
+}
+
+.course-card-body {
+    padding: 16px;
+}
+
+.course-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.course-card-provider {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+/* ENROLLMENT STATUS BADGES  */
+/* Pill-shaped badges using soft background + matching text color per status */
+
+.badge-pending {
+    background-color: #fff3e0;
+    color: #e65100;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-approved {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-rejected {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
 }
