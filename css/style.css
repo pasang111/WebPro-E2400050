@@ -127,3 +127,203 @@ body {
     font-weight: 700;
     margin: 0 auto 15px auto;
 }
+
+/* ===================== */
+/* ABOUT PAGE STYLES     */
+/* ===================== */
+.page-header {
+    background-color: #f0f4ff;
+    padding: 80px 0;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.page-header .container {
+    width: 100%;
+}
+
+.page-header-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.page-header-subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-top: 12px;
+}
+
+/* Section Padding */
+.section-padding {
+    padding: 70px 0;
+}
+
+/* Section Tag */
+.section-tag {
+    display: inline-block;
+    background-color: #e0ecff;
+    color: #0056d2;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+/* About Image Placeholder */
+.about-image-placeholder {
+    background-color: #d0e0ff;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #0056d2;
+    font-size: 16px;
+}
+
+/* About Stat Cards */
+.about-stat-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 30px 20px;
+    border: 1px solid #e8e8e8;
+}
+
+.about-stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0056d2;
+    margin-bottom: 5px;
+}
+
+.about-stat-label {
+    font-size: 15px;
+    color: #555;
+    margin: 0;
+}
+
+/* Step Cards (About - How It Works) */
+.step-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 35px 25px;
+    border: 1px solid #e8e8e8;
+    height: 100%;
+}
+
+.step-icon-wrap {
+    width: 60px;
+    height: 60px;
+    background-color: #0056d2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px auto;
+}
+
+.step-icon-wrap .step-number {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    border-radius: 0;
+}
+
+.step-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.step-desc {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* ===================== */
+/* CONTACT PAGE STYLES   */
+/* ===================== */
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.contact-icon {
+    width: 44px;
+    height: 44px;
+    background-color: #e0ecff;
+    color: #0056d2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.contact-info-item h6 {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 3px;
+}
+
+.contact-info-item p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.contact-form-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 35px;
+    border: 1px solid #e8e8e8;
+}
+
+.contact-input {
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #333;
+    background-color: #ffffff;
+}
+
+.contact-input:focus {
+    border-color: #0056d2;
+    box-shadow: 0 0 0 3px rgba(0, 86, 210, 0.1);
+    outline: none;
+}
+
+.btn-rounded {
+    border-radius: 25px;
+    padding: 10px 28px;
+    font-size: 15px;
+    font-weight: 500;
+}
