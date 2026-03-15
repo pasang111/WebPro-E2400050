@@ -1,25 +1,157 @@
-/* =============================================
-   EduSkill - Archana Tharu
-   File: css/archana.css
-   BIT210 Web Programming Project
-   Day 1 - Initial stylesheet setup
-   ============================================= */
 
-/* 
-   This file will contain styles for:
-   - Provider signup page
-   - Provider dashboard
-   - Add course page
-   - Edit course page
-   - Course students page
 
-   Styles will be added as each page is built.
-*/
-
-/* ---- Placeholder base style ---- */
-/* Provider module color theme */
+/* i used :root to store the main green colors so i dont have to type the hex code every time */
+/* Provider module colors */
 :root {
-    --provider-primary: #2e7d32;
-    --provider-dark:    #1b5e20;
-    --provider-accent:  #f4a31a;
+    --provider-green: #2e7d32;  
+    --provider-light: #e8f5e9;   
+    --provider-dark: #1b5e20;    
+}
+
+
+
+/* this is the main wrapper for entire of the dashboard page */
+.provider-dashboard {
+    background-color: #f8f9fa;  
+    min-height: 100vh;          
+}
+
+/* the green header at top of the provider dashboard */
+.provider-header {
+    background-color: #2e7d32;  
+    color: white;               
+    padding: 30px 0;            
+    margin-bottom: 30px;       
+}
+
+/* styling heading inside  header */
+.provider-header h2 {
+    font-size: 24px;    
+    font-weight: 700;  
+    margin: 0;          
+}
+
+/* the small description text below heading */
+.provider-header p {
+    font-size: 14px;   
+    margin: 5px 0 0;    
+    opacity: 0.85;      
+}
+
+
+
+/* these cards show numbers like total courses, students etc */
+.provider-stat-card {
+    background-color: #ffffff;     
+    border-radius: 10px;            
+    padding: 24px;                  
+    border: 1px solid #e8e8e8;     
+    text-align: center;             
+    margin-bottom: 20px;            
+}
+
+/* the big number shown on each stat card */
+.provider-stat-card h3 {
+    font-size: 30px;        
+    font-weight: 700;       
+    color: #2e7d32;         
+    margin: 0;
+}
+
+/* the label below the number like "Total Courses" */
+.provider-stat-card p {
+    font-size: 13px;       
+    color: #666;           
+    margin: 4px 0 0;        
+}
+
+
+/* wrapper div around the table to give it a card look */
+.course-table-wrap {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid #e8e8e8;
+}
+
+/* styling the table header row */
+.course-table-wrap .table th {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;                        
+    text-transform: uppercase;         
+    letter-spacing: 0.5px;             
+    border-top: none;                   
+    border-bottom: 2px solid #e8e8e8;  
+}
+
+/* styling each cell in the table body */
+.course-table-wrap .table td {
+    vertical-align: middle; 
+    font-size: 14px;
+    color: #333;            
+}
+
+
+/* the card that wraps the add/edit course form */
+.course-form-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;              
+    border: 1px solid #e8e8e8;
+}
+
+/* default style for all input fields inside the form */
+.course-form-card .form-control {
+    border: 1px solid #d0d0d0;  
+    border-radius: 6px;
+    font-size: 14px;
+    height: 44px;               
+    transition: border 0.2s;   
+}
+
+/* textarea shouldnt have fixed height like normal inputs */
+.course-form-card textarea.form-control {
+    height: auto; /* let it grow based on content */
+}
+
+/* when user clicks on an input, highlight it with green border */
+.course-form-card .form-control:focus {
+    border-color: #2e7d32;                      
+    box-shadow: 0 0 0 3px rgba(46,125,50,0.1);  
+    outline: none;                              
+}
+
+
+
+/* edit button - blue style */
+.btn-edit {
+    background-color: #e0ecff;  
+    color: #0056d2;             
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* delete button - red style to show danger */
+.btn-delete {
+    background-color: #ffebee;  
+    color: #c62828;             
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* slightly darker blue when hovering over edit */
+.btn-edit:hover {
+    background-color: #c7dcff;
+}
+
+/* slightly darker red when hovering over delete */
+.btn-delete:hover {
+    background-color: #ffcdd2;
 }
