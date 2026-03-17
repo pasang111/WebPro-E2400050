@@ -1,37 +1,48 @@
-<!-- Footer -->
-    <footer class="footer mt-auto py-4 bg-dark text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">EDUSKILL</h5>
-                    <p>A simple online learning platform for students and training providers.</p>
+<?php
+// includes/footer.php
+// Responsible: Pasang Lama (Team Lead)
+?>
+<footer class="eduskill-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="footer-brand">
+                    <span class="brand-icon"><i class="fas fa-graduation-cap"></i></span>
+                    EDU<span class="brand-accent">SKILL</span>
                 </div>
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/eduskill/index.php" class="text-white">Home</a></li>
-                        <li><a href="/eduskill/about.php" class="text-white">About</a></li>
-                        <li><a href="/eduskill/contact.php" class="text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">Contact Us</h5>
-                    <p>Email: info@eduskill.com</p>
-                    <p>Phone: +1 234 567 890</p>
-                </div>
+                <p class="footer-desc">An initiative by the Ministry of Human Resources to connect learners with certified training providers across Malaysia.</p>
             </div>
-            
+            <div class="col-lg-2 col-md-4 mb-4">
+                <h6 class="footer-heading">Platform</h6>
+                <ul class="footer-links">
+                    <li><a href="/eduskill/index.php">Home</a></li>
+                    <li><a href="/eduskill/about.php">About</a></li>
+                    <li><a href="/eduskill/contact.php">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 mb-4">
+                <h6 class="footer-heading">For Students</h6>
+                <ul class="footer-links">
+                    <li><a href="/eduskill/auth/signup_student.php">Sign Up Free</a></li>
+                    <li><a href="/eduskill/auth/login.php">Student Login</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 mb-4">
+                <h6 class="footer-heading">For Providers</h6>
+                <ul class="footer-links">
+                    <li><a href="/eduskill/auth/signup_provider.php">Register Organisation</a></li>
+                    <li><a href="/eduskill/auth/login.php">Provider Login</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="/eduskill/js/script.js"></script>
-    <script src="/eduskill/js/pasang.js"></script>
-
-</body>
-</html>
+        <hr class="footer-divider">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="footer-copy">&copy; <?php echo date('Y'); ?> EduSkill. Ministry of Human Resources, Malaysia.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <p class="footer-copy">BIT210 Web Programming Project</p>
+            </div>
+        </div>
+    </div>
+</footer>
