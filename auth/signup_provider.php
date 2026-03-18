@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- LEFT PANEL -->
     <div class="auth-left" style="background-color: #2e7d32;">
         <a href="../index.php" class="auth-brand">
-            <span class="auth-brand-icon"><i class="fas fa-graduation-cap"></i></span>
+            <img src="../images/logo.png" alt="EduSkill Logo" style="width:36px; height:36px; border-radius:8px; object-fit:cover;">
             <span class="auth-brand-text">EDU<span class="auth-brand-accent">SKILL</span></span>
         </a>
         <div class="auth-left-content">
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             <label class="auth-label">Phone Number</label>
                             <div class="auth-input-wrap">
-                                <i class="fas fa-phone auth-input-icon"></i>
+                                <i class="fas fa-phone-alt auth-input-icon"></i>
                                 <input type="text" name="phone" class="form-control auth-input" placeholder="03-12345678" value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
                             </div>
                         </div>
