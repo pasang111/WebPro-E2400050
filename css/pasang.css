@@ -1,12 +1,3 @@
-/* =============================================
-   EduSkill - pasang.css
-   Responsible: Pasang Lama (Team Lead)
-   Day 4 - Dashboard shared styles + Auth pages
-   ============================================= */
-
-/* =============================================
-   DASHBOARD LAYOUT
-   ============================================= */
 .dashboard-body {
     padding-top: 0;
     background: #f3f4f6;
@@ -447,9 +438,9 @@
     margin-bottom: 16px;
 }
 
-/* =============================================
+/*
    AUTH PAGES (login.php)
-   ============================================= */
+   */
 body.auth-page {
     padding-top: 0;
     background: #f3f4f6;
