@@ -6,7 +6,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <nav class="navbar navbar-expand-lg eduskill-navbar fixed-top">
     <div class="container-fluid px-4">
         <a class="navbar-brand" href="/eduskill/index.php">
-            <span class="brand-icon"><i class="fas fa-graduation-cap"></i></span>
+            <img src="/eduskill/images/logo.png" alt="EduSkill Logo" style="width:36px; height:36px; border-radius:8px; object-fit:cover;">    
             <span class="brand-text">EDU<span class="brand-accent">SKILL</span></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">

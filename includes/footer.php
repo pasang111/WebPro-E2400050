@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-4 mb-4">
                 <div class="footer-brand">
-                    <span class="brand-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <img src="/eduskill/images/logo.png" alt="EduSkill Logo" style="width:36px; height:36px; border-radius:8px; object-fit:cover;">
                     EDU<span class="brand-accent">SKILL</span>
                 </div>
                 <p class="footer-desc">An initiative by the Ministry of Human Resources to connect learners with certified training providers across Malaysia.</p>
