@@ -1,19 +1,13 @@
 <?php
-// auth/login.php
-// EduSkill Login Page
-// Responsible: Pasang Lama (Team Lead)
-// Day 3 - Login page with 3 role selection
 
 session_start();
+require_once '../config/database.php';
 
+// Redirect if already logged in
 if (isset($_SESSION['user_role'])) {
-    if ($_SESSION['user_role'] == 'admin') {
-        header('Location: ../admin/dashboard.php'); exit();
-    } elseif ($_SESSION['user_role'] == 'student') {
-        header('Location: ../student/dashboard.php'); exit();
-    } elseif ($_SESSION['user_role'] == 'provider') {
-        header('Location: ../provider/dashboard.php'); exit();
-    }
+    if ($_SESSION['user_role'] == 'admin')    { header('Location: ../admin/dashboard.php');    exit(); }
+    if ($_SESSION['user_role'] == 'student')  { header('Location: ../student/dashboard.php');  exit(); }
+    if ($_SESSION['user_role'] == 'provider') { header('Location: ../provider/dashboard.php'); exit(); }
 }
 
 $error = '';
@@ -23,20 +17,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'] ?? '';
     $role     = $_POST['role'] ?? '';
 
-    if ($role == 'admin' && $email == 'admin@eduskill.com' && $password == 'admin123') {
-        $_SESSION['user_role'] = 'admin';
-        $_SESSION['user_name'] = 'Admin Officer';
-        header('Location: ../admin/dashboard.php'); exit();
-    } elseif ($role == 'student' && $email == 'student@eduskill.com' && $password == 'student123') {
-        $_SESSION['user_role'] = 'student';
-        $_SESSION['user_name'] = 'Test Student';
-        header('Location: ../student/dashboard.php'); exit();
-    } elseif ($role == 'provider' && $email == 'provider@eduskill.com' && $password == 'provider123') {
-        $_SESSION['user_role'] = 'provider';
-        $_SESSION['user_name'] = 'Test Provider';
-        header('Location: ../provider/dashboard.php'); exit();
+    if (empty($email) || empty($password) || empty($role)) {
+        $error = 'Please fill in all fields and select a role.';
     } else {
-        $error = 'Invalid email, password, or role. Please try again.';
+
+        if ($role == 'admin') {
+            $sql  = "SELECT * FROM admin WHERE email = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, 's', $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $user   = mysqli_fetch_assoc($result);
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_role'] = 'admin';
+                $_SESSION['user_id']   = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                header('Location: ../admin/dashboard.php'); exit();
+            } else {
+                $error = 'Invalid email or password.';
+            }
+
+        } elseif ($role == 'student') {
+            $sql  = "SELECT * FROM students WHERE email = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, 's', $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $user   = mysqli_fetch_assoc($result);
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_role'] = 'student';
+                $_SESSION['user_id']   = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                header('Location: ../student/dashboard.php'); exit();
+            } else {
+                $error = 'Invalid email or password.';
+            }
+
+        } elseif ($role == 'provider') {
+            $sql  = "SELECT * FROM providers WHERE email = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, 's', $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $user   = mysqli_fetch_assoc($result);
+
+            if ($user && password_verify($password, $user['password'])) {
+                if ($user['status'] == 'pending') {
+                    $error = 'Your account is still pending approval by the Ministry. Please wait.';
+                } elseif ($user['status'] == 'rejected') {
+                    $error = 'Your registration has been rejected. Please contact the Ministry.';
+                } else {
+                    $_SESSION['user_role']    = 'provider';
+                    $_SESSION['user_id']      = $user['id'];
+                    $_SESSION['user_name']    = $user['org_name'];
+                    header('Location: ../provider/dashboard.php'); exit();
+                }
+            } else {
+                $error = 'Invalid email or password.';
+            }
+        }
     }
 }
 ?>
@@ -53,13 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/pasang.css">
 </head>
 <body class="auth-body">
-
 <div class="auth-wrap">
 
-    <!-- LEFT PANEL -->
+    <!-- LEFT -->
     <div class="auth-left">
         <a href="../index.php" class="auth-logo">
-            <img src="../images/logo.png" alt="EduSkill Logo" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">    
+            <img src="../images/logo.png" alt="Logo" style="width:32px;height:32px;border-radius:8px;object-fit:cover;">
             <span class="auth-logo-text">EDU<span class="auth-logo-accent">SKILL</span></span>
         </a>
         <div class="auth-left-body">
@@ -76,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <!-- RIGHT PANEL -->
+    <!-- RIGHT -->
     <div class="auth-right">
         <div class="auth-form-wrap">
             <h3 class="auth-form-title">Log In to EduSkill</h3>
@@ -87,26 +127,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <form method="POST" action="">
-
-                <!-- Role selector -->
                 <div class="role-selector">
                     <label class="role-option">
                         <input type="radio" name="role" value="student" checked>
-                        <span class="role-btn">
-                            <i class="fas fa-user-graduate"></i> Student
-                        </span>
+                        <span class="role-btn"><i class="fas fa-user-graduate"></i> Student</span>
                     </label>
                     <label class="role-option">
                         <input type="radio" name="role" value="provider">
-                        <span class="role-btn">
-                            <i class="fas fa-building"></i> Provider
-                        </span>
+                        <span class="role-btn"><i class="fas fa-building"></i> Provider</span>
                     </label>
                     <label class="role-option">
                         <input type="radio" name="role" value="admin">
-                        <span class="role-btn">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </span>
+                        <span class="role-btn"><i class="fas fa-user-shield"></i> Admin</span>
                     </label>
                 </div>
 
@@ -132,7 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <button type="submit" class="btn-auth-submit">
                     Log In <i class="fas fa-arrow-right ml-2"></i>
                 </button>
-
             </form>
 
             <div class="auth-divider"><span>Don't have an account?</span></div>
@@ -146,21 +177,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <div class="test-creds mt-4">
-                <small><strong>Test Credentials:</strong><br>
-                Admin: admin@eduskill.com / admin123<br>
-                Student: student@eduskill.com / student123<br>
-                Provider: provider@eduskill.com / provider123</small>
-            </div>
-
             <div class="text-center mt-3">
                 <a href="../index.php" class="auth-back"><i class="fas fa-arrow-left mr-1"></i> Back to Home</a>
             </div>
         </div>
     </div>
-
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
