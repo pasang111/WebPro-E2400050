@@ -1,28 +1,31 @@
 <?php
-
-// Start session to access stored user data
 session_start();
+require_once '../config/database.php';
 
-// Redirect to login if user is not logged in or is not a student
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
     header('Location: ../auth/login.php'); exit();
 }
 
-// Get student name from session; default to 'Student' if not set
+$student_id   = $_SESSION['user_id'];
 $student_name = $_SESSION['user_name'] ?? 'Student';
 
-// Placeholder summary stats (replace with DB queries later)
-$enrolled_courses  = 2;
-$pending_approvals = 1;
-$completed_courses = 1;
-$available_courses = 6;
+// Get real counts
+$enrolled  = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments WHERE student_id=$student_id"))['c'];
+$pending   = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments WHERE student_id=$student_id AND status='pending'"))['c'];
+$approved  = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments WHERE student_id=$student_id AND status='approved'"))['c'];
+$completed = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments WHERE student_id=$student_id AND status='completed'"))['c'];
+$available = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM courses WHERE status='approved'"))['c'];
 
-// Placeholder recent enrollment data (replace with DB query later)
-$recent_enrollments = [
-    ['course'=>'Full Stack Web Development','provider'=>'Tech Academy MY',   'duration'=>'8 Weeks','status'=>'approved', 'date'=>'2026-03-12'],
-    ['course'=>'Data Science & Analytics',  'provider'=>'DataSkill Institute','duration'=>'6 Weeks','status'=>'pending',  'date'=>'2026-03-13'],
-    ['course'=>'UI/UX Design Fundamentals', 'provider'=>'Creative Hub KL',   'duration'=>'4 Weeks','status'=>'completed','date'=>'2026-03-01'],
-];
+// Get recent enrollments
+$result = mysqli_query($conn, "
+    SELECT e.id, e.status, e.enrolled_at, c.title as course, c.duration, p.org_name as provider
+    FROM enrollments e
+    JOIN courses c ON e.course_id = c.id
+    JOIN providers p ON c.provider_id = p.id
+    WHERE e.student_id = $student_id
+    ORDER BY e.enrolled_at DESC
+    LIMIT 5
+");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +43,6 @@ $recent_enrollments = [
 <body class="dashboard-body">
 <div class="dashboard-wrap">
 
-    <!-- Sidebar Navigation -->
     <aside class="dash-sidebar student-sidebar">
         <div class="dsb-brand">
             <a href="../index.php">
@@ -53,14 +55,10 @@ $recent_enrollments = [
             <a href="dashboard.php" class="dsb-link active"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="courses.php" class="dsb-link"><i class="fas fa-book-open"></i> Browse Courses</a>
             <a href="my_courses.php" class="dsb-link"><i class="fas fa-graduation-cap"></i> My Enrollments
-                <?php // Show pending count badge on sidebar link if there are pending approvals ?>
-                <?php if($pending_approvals > 0): ?>
-                    <span class="dsb-badge"><?php echo $pending_approvals; ?></span>
-                <?php endif; ?>
+                <?php if($pending > 0): ?><span class="dsb-badge"><?php echo $pending; ?></span><?php endif; ?>
             </a>
         </nav>
         <div class="dsb-bottom">
-            <!-- Display first letter of student's name as avatar -->
             <div class="dsb-user-info">
                 <div class="dsb-avatar"><?php echo strtoupper(substr($student_name,0,1)); ?></div>
                 <div><strong><?php echo htmlspecialchars($student_name); ?></strong><span>Student</span></div>
@@ -69,7 +67,6 @@ $recent_enrollments = [
         </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="dash-main">
         <div class="dash-topbar">
             <div>
@@ -81,44 +78,41 @@ $recent_enrollments = [
             </div>
         </div>
 
-        <!-- Summary stat cards -->
         <div class="row mb-4">
             <div class="col-6 col-lg-3 mb-3">
                 <div class="dstat-card">
                     <div class="dstat-icon" style="background:#dbeafe;color:#1d4ed8;"><i class="fas fa-book-open"></i></div>
-                    <div class="dstat-info"><h3><?php echo $enrolled_courses; ?></h3><p>Enrolled Courses</p></div>
+                    <div class="dstat-info"><h3><?php echo $enrolled; ?></h3><p>Enrolled Courses</p></div>
                 </div>
             </div>
             <div class="col-6 col-lg-3 mb-3">
                 <div class="dstat-card">
                     <div class="dstat-icon" style="background:#ffedd5;color:#c2410c;"><i class="fas fa-clock"></i></div>
-                    <div class="dstat-info"><h3><?php echo $pending_approvals; ?></h3><p>Pending Approval</p></div>
+                    <div class="dstat-info"><h3><?php echo $pending; ?></h3><p>Pending Approval</p></div>
                 </div>
             </div>
             <div class="col-6 col-lg-3 mb-3">
                 <div class="dstat-card">
-                    <div class="dstat-icon" style="background:#dcfce7;color:#15803d;"><i class="fas fa-certificate"></i></div>
-                    <div class="dstat-info"><h3><?php echo $completed_courses; ?></h3><p>Completed</p></div>
+                    <div class="dstat-icon" style="background:#dcfce7;color:#15803d;"><i class="fas fa-check-circle"></i></div>
+                    <div class="dstat-info"><h3><?php echo $approved; ?></h3><p>Approved</p></div>
                 </div>
             </div>
             <div class="col-6 col-lg-3 mb-3">
                 <div class="dstat-card">
                     <div class="dstat-icon" style="background:#fce7f3;color:#be185d;"><i class="fas fa-search"></i></div>
-                    <div class="dstat-info"><h3><?php echo $available_courses; ?></h3><p>Available Courses</p></div>
+                    <div class="dstat-info"><h3><?php echo $available; ?></h3><p>Available Courses</p></div>
                 </div>
             </div>
         </div>
 
-        <!-- Alert banner if student has pending enrollments awaiting approval -->
-        <?php if ($pending_approvals > 0): ?>
+        <?php if($pending > 0): ?>
         <div class="alert-notice mb-4">
             <i class="fas fa-info-circle mr-2"></i>
-            You have <strong><?php echo $pending_approvals; ?> enrollment(s)</strong> waiting for Ministry approval.
-            <a href="my_courses.php" class="ml-2" style="font-weight:600; color:#0056d2;">Check Status</a>
+            You have <strong><?php echo $pending; ?> enrollment(s)</strong> waiting for Ministry approval.
+            <a href="my_courses.php" class="ml-2" style="font-weight:600;">Check Status</a>
         </div>
         <?php endif; ?>
 
-        <!-- Recent enrollments table -->
         <div class="dash-card mb-4">
             <div class="dash-card-head">
                 <h5>My Enrollments</h5>
@@ -126,45 +120,33 @@ $recent_enrollments = [
             </div>
             <div class="dash-table-wrap">
                 <table class="table dash-table">
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Provider</th>
-                            <th>Duration</th>
-                            <th>Enrolled On</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Course</th><th>Provider</th><th>Duration</th><th>Enrolled On</th><th>Status</th></tr></thead>
                     <tbody>
-                        <?php foreach ($recent_enrollments as $e): ?>
+                        <?php while($e = mysqli_fetch_assoc($result)): ?>
                         <tr>
                             <td><strong><?php echo htmlspecialchars($e['course']); ?></strong></td>
                             <td><?php echo htmlspecialchars($e['provider']); ?></td>
                             <td><?php echo $e['duration']; ?></td>
-                            <td><?php echo $e['date']; ?></td>
+                            <td><?php echo date('d M Y', strtotime($e['enrolled_at'])); ?></td>
                             <td>
-                                <?php // Display colored status badge per enrollment status ?>
-                                <?php if ($e['status']=='pending'): ?>
+                                <?php if($e['status']=='pending'): ?>
                                     <span class="status-pending"><i class="fas fa-clock mr-1"></i>Pending</span>
-                                <?php elseif ($e['status']=='approved'): ?>
+                                <?php elseif($e['status']=='approved'): ?>
                                     <span class="status-approved"><i class="fas fa-check-circle mr-1"></i>Approved</span>
-                                <?php else: ?>
+                                <?php elseif($e['status']=='completed'): ?>
                                     <span class="status-completed"><i class="fas fa-certificate mr-1"></i>Completed</span>
+                                <?php else: ?>
+                                    <span class="status-rejected"><i class="fas fa-times-circle mr-1"></i>Rejected</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endwhile; ?>
+                        <?php if(mysqli_num_rows($result) == 0): ?>
+                        <tr><td colspan="5" class="text-center text-muted py-4">No enrollments yet. <a href="courses.php">Browse courses</a></td></tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Prompt card encouraging students to browse more courses -->
-        <div class="dash-card p-4 text-center">
-            <i class="fas fa-search" style="font-size:36px; color:#d1d5db; display:block; margin-bottom:14px;"></i>
-            <h5>Discover New Courses</h5>
-            <p class="text-muted">Browse hundreds of certified courses from approved training providers.</p>
-            <a href="courses.php" class="btn-dash-primary mt-2">Browse Courses</a>
         </div>
     </main>
 </div>

@@ -1,22 +1,24 @@
 <?php
-
-// Start session to access stored user data
 session_start();
+require_once '../config/database.php';
 
-// Redirect to login if user is not logged in or is not a student
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
     header('Location: ../auth/login.php'); exit();
 }
 
-// Get student's name from session, default to 'Student' if not set
+$student_id   = $_SESSION['user_id'];
 $student_name = $_SESSION['user_name'] ?? 'Student';
 
-// Placeholder enrollment data (replace with actual DB query later)
-$my_enrollments = [
-    ['id' => 1, 'course' => 'Full Stack Web Development', 'provider' => 'Tech Academy MY',    'duration' => '8 Weeks', 'enrolled_date' => '2026-03-12', 'status' => 'approved'],
-    ['id' => 2, 'course' => 'Data Science & Analytics',   'provider' => 'DataSkill Institute', 'duration' => '6 Weeks', 'enrolled_date' => '2026-03-13', 'status' => 'pending'],
-    ['id' => 3, 'course' => 'UI/UX Design Fundamentals',  'provider' => 'Creative Hub KL',     'duration' => '4 Weeks', 'enrolled_date' => '2026-03-08', 'status' => 'completed'],
-];
+$result = mysqli_query($conn, "
+    SELECT e.id, e.status, e.enrolled_at, e.notes,
+           c.title as course, c.duration, c.category,
+           p.org_name as provider
+    FROM enrollments e
+    JOIN courses c ON e.course_id = c.id
+    JOIN providers p ON c.provider_id = p.id
+    WHERE e.student_id = $student_id
+    ORDER BY e.enrolled_at DESC
+");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +36,6 @@ $my_enrollments = [
 <body class="dashboard-body">
 <div class="dashboard-wrap">
 
-    <!-- Sidebar Navigation -->
     <aside class="dash-sidebar student-sidebar">
         <div class="dsb-brand">
             <a href="../index.php">
@@ -42,16 +43,13 @@ $my_enrollments = [
                 <span class="dsb-brand-text">EDU<span class="dsb-brand-accent">SKILL</span></span>
             </a>
         </div>
-        <div class="dsb-role-badge student-role-badge">
-            <i class="fas fa-user-graduate mr-2"></i> Student
-        </div>
+        <div class="dsb-role-badge student-role-badge"><i class="fas fa-user-graduate mr-2"></i> Student</div>
         <nav class="dsb-nav">
             <a href="dashboard.php" class="dsb-link"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="courses.php" class="dsb-link"><i class="fas fa-book-open"></i> Browse Courses</a>
             <a href="my_courses.php" class="dsb-link active"><i class="fas fa-graduation-cap"></i> My Enrollments</a>
         </nav>
         <div class="dsb-bottom">
-            <!-- Display first letter of student's name as avatar -->
             <div class="dsb-user-info">
                 <div class="dsb-avatar"><?php echo strtoupper(substr($student_name,0,1)); ?></div>
                 <div><strong><?php echo htmlspecialchars($student_name); ?></strong><span>Student</span></div>
@@ -60,7 +58,6 @@ $my_enrollments = [
         </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="dash-main">
         <div class="dash-topbar">
             <div>
@@ -72,18 +69,16 @@ $my_enrollments = [
             </div>
         </div>
 
-        <!-- Info box explaining the enrollment approval process -->
         <div class="enrollment-info-box mb-4">
             <div class="eib-item">
                 <i class="fas fa-info-circle"></i>
                 <div>
                     <strong>How enrollment works</strong>
-                    <p>After you enroll in a course, the Ministry officer will review and approve your request. You will see the status update here.</p>
+                    <p>After you enroll, the Ministry officer will review and approve your request. Status updates appear here automatically.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Enrollments Table -->
         <div class="dash-card">
             <div class="dash-card-head">
                 <h5>My Course Enrollments</h5>
@@ -92,37 +87,32 @@ $my_enrollments = [
             <div class="dash-table-wrap">
                 <table class="table dash-table">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Course</th>
-                            <th>Provider</th>
-                            <th>Duration</th>
-                            <th>Enrolled On</th>
-                            <th>Status</th>
-                        </tr>
+                        <tr><th>#</th><th>Course</th><th>Provider</th><th>Duration</th><th>Enrolled On</th><th>Status</th></tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($my_enrollments as $e): ?>
+                        <?php while($e = mysqli_fetch_assoc($result)): ?>
                         <tr>
                             <td><?php echo $e['id']; ?></td>
                             <td><strong><?php echo htmlspecialchars($e['course']); ?></strong></td>
                             <td><?php echo htmlspecialchars($e['provider']); ?></td>
                             <td><?php echo $e['duration']; ?></td>
-                            <td><?php echo $e['enrolled_date']; ?></td>
+                            <td><?php echo date('d M Y', strtotime($e['enrolled_at'])); ?></td>
                             <td>
-                                <?php // Display colored status badge based on enrollment status ?>
-                                <?php if ($e['status'] == 'pending'): ?>
+                                <?php if($e['status']=='pending'): ?>
                                     <span class="status-pending"><i class="fas fa-clock mr-1"></i>Pending Approval</span>
-                                <?php elseif ($e['status'] == 'approved'): ?>
+                                <?php elseif($e['status']=='approved'): ?>
                                     <span class="status-approved"><i class="fas fa-check-circle mr-1"></i>Approved</span>
-                                <?php elseif ($e['status'] == 'completed'): ?>
+                                <?php elseif($e['status']=='completed'): ?>
                                     <span class="status-completed"><i class="fas fa-certificate mr-1"></i>Completed</span>
                                 <?php else: ?>
                                     <span class="status-rejected"><i class="fas fa-times-circle mr-1"></i>Rejected</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endwhile; ?>
+                        <?php if(mysqli_num_rows($result) == 0): ?>
+                        <tr><td colspan="6" class="text-center text-muted py-4">No enrollments yet. <a href="courses.php">Browse courses to enroll.</a></td></tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
