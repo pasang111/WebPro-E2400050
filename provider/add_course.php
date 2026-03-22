@@ -1,33 +1,35 @@
 <?php
 
-// Start session to access stored user data
 session_start();
+require_once '../config/database.php';
 
-// Redirect to login if user is not logged in or is not a provider
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'provider') {
     header('Location: ../auth/login.php'); exit();
 }
 
-// Get provider name from session; default to 'Provider' if not set
+$provider_id   = $_SESSION['user_id'];
 $provider_name = $_SESSION['user_name'] ?? 'Provider';
-$success = '';
-$error   = '';
+$success       = '';
+$error         = '';
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitize and retrieve submitted form fields
     $title       = trim($_POST['title'] ?? '');
     $category    = trim($_POST['category'] ?? '');
     $duration    = trim($_POST['duration'] ?? '');
     $description = trim($_POST['description'] ?? '');
-    $price       = trim($_POST['price'] ?? '');
+    $price       = floatval($_POST['price'] ?? 0);
+    $max_students= intval($_POST['max_students'] ?? 30);
 
-    // Validate that all required fields are filled
     if (empty($title) || empty($category) || empty($duration) || empty($description)) {
         $error = 'Please fill in all required fields.';
     } else {
-        // Placeholder - will connect to database in Day 9
-        $success = 'Course "'.$title.'" has been added successfully and is pending admin approval.';
+        $stmt = mysqli_prepare($conn, "INSERT INTO courses (provider_id, title, category, duration, description, price, max_students, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
+        mysqli_stmt_bind_param($stmt, 'issssdi', $provider_id, $title, $category, $duration, $description, $price, $max_students);
+        if (mysqli_stmt_execute($stmt)) {
+            $success = 'Course "'.$title.'" added successfully and is pending admin approval.';
+        } else {
+            $error = 'Something went wrong. Please try again.';
+        }
     }
 }
 ?>
@@ -46,8 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body class="dashboard-body">
 <div class="dashboard-wrap">
-
-    <!-- Sidebar Navigation -->
     <aside class="dash-sidebar provider-sidebar">
         <div class="dsb-brand">
             <a href="../index.php">
@@ -55,9 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span class="dsb-brand-text">EDU<span class="dsb-brand-accent">SKILL</span></span>
             </a>
         </div>
-        <div class="dsb-role-badge provider-role-badge">
-            <i class="fas fa-building mr-2"></i> Training Provider
-        </div>
+        <div class="dsb-role-badge provider-role-badge"><i class="fas fa-building mr-2"></i> Training Provider</div>
         <nav class="dsb-nav">
             <a href="dashboard.php" class="dsb-link"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="add_course.php" class="dsb-link active"><i class="fas fa-plus-circle"></i> Add Course</a>
@@ -65,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="course_students.php" class="dsb-link"><i class="fas fa-users"></i> Enrolled Students</a>
         </nav>
         <div class="dsb-bottom">
-            <!-- Display first letter of provider's name as avatar -->
             <div class="dsb-user-info">
                 <div class="dsb-avatar provider-avatar"><?php echo strtoupper(substr($provider_name,0,1)); ?></div>
                 <div><strong><?php echo htmlspecialchars($provider_name); ?></strong><span>Provider</span></div>
@@ -74,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="dash-main">
         <div class="dash-topbar">
             <div>
@@ -83,22 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
-        <!-- Show validation error or success message -->
-        <?php if ($error): ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <?php if ($success): ?>
-            <div class="alert alert-success"><i class="fas fa-check-circle mr-2"></i><?php echo $success; ?></div>
-        <?php endif; ?>
+        <?php if($error): ?><div class="alert alert-danger"><?php echo $error; ?></div><?php endif; ?>
+        <?php if($success): ?><div class="alert alert-success"><i class="fas fa-check-circle mr-2"></i><?php echo $success; ?></div><?php endif; ?>
 
         <div class="row">
-            <!-- Course submission form -->
             <div class="col-lg-8">
                 <div class="dash-card p-4">
                     <form method="POST" action="">
                         <div class="form-group">
                             <label class="cf-label">Course Title <span class="text-danger">*</span></label>
-                            <!-- Retain entered value if form reloads due to validation error -->
                             <input type="text" name="title" class="form-control cf-input" placeholder="e.g. Full Stack Web Development" value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
                         </div>
                         <div class="row">
@@ -124,17 +113,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="cf-label">Course Description <span class="text-danger">*</span></label>
-                            <textarea name="description" class="form-control cf-input" rows="5" placeholder="Describe what students will learn in this course..." required><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+                            <label class="cf-label">Description <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control cf-input" rows="5" placeholder="Describe what students will learn..." required><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
                         </div>
-                        <!-- Optional fields - not required for submission -->
-                        <div class="form-group">
-                            <label class="cf-label">Price (RM)</label>
-                            <input type="number" name="price" class="form-control cf-input" placeholder="e.g. 500" value="<?php echo htmlspecialchars($_POST['price'] ?? ''); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label class="cf-label">Maximum Students</label>
-                            <input type="number" name="max_students" class="form-control cf-input" placeholder="e.g. 30" value="<?php echo htmlspecialchars($_POST['max_students'] ?? ''); ?>">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="cf-label">Price (RM)</label>
+                                    <input type="number" name="price" class="form-control cf-input" placeholder="e.g. 500" value="<?php echo htmlspecialchars($_POST['price'] ?? ''); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="cf-label">Max Students</label>
+                                    <input type="number" name="max_students" class="form-control cf-input" placeholder="e.g. 30" value="<?php echo htmlspecialchars($_POST['max_students'] ?? '30'); ?>">
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn-main">
                             <i class="fas fa-plus-circle mr-2"></i> Add Course
@@ -143,16 +137,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
             </div>
-
-            <!-- Side info box with submission guidelines -->
             <div class="col-lg-4">
                 <div class="course-add-info">
                     <h6><i class="fas fa-info-circle mr-2"></i>Important Notes</h6>
                     <ul>
-                        <li>Your course will be listed as <strong>Pending</strong> until approved by a Ministry officer.</li>
-                        <li>Make sure all information is accurate before submitting.</li>
-                        <li>Students can only enroll after your course is approved.</li>
-                        <li>You can edit course details after submission.</li>
+                        <li>Course will be listed as <strong>Pending</strong> until approved by admin.</li>
+                        <li>Students can only enroll after approval.</li>
+                        <li>Make sure all information is accurate.</li>
+                        <li>You can edit details after submission.</li>
                     </ul>
                 </div>
             </div>
@@ -161,7 +153,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Custom JS for provider-side interactions -->
-<script src="../js/archana.js"></script>
 </body>
 </html>
