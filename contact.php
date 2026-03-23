@@ -1,6 +1,4 @@
 <?php
-// contact.php - EduSkill Contact Page
-// Responsible: Pasang Lama (Team Lead)
 session_start();
 $success = '';
 $error   = '';
