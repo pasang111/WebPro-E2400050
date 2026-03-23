@@ -1,6 +1,4 @@
 <?php
-// about.php - EduSkill About Page
-// Responsible: Pasang Lama (Team Lead)
 ?>
 <!DOCTYPE html>
 <html lang="en">
