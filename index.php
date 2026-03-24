@@ -82,9 +82,6 @@
 
 <?php include 'includes/navbar.php'; ?>
 
-<!-- ══════════════════════════════════════
-     HERO SLIDER
-═══════════════════════════════════════ -->
 <div class="hero-slider-wrap">
 
     <!-- Slide 1 -->
@@ -133,9 +130,6 @@
         </section>
     </div>
 
-<!-- ══════════════════════════════════════
-     PARTNERS MARQUEE
-═══════════════════════════════════════ -->
 <div class="partners-strip">
     <div class="container">
         <p class="partners-label">Our Valued Partners</p>
@@ -163,9 +157,6 @@
     </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     CATEGORIES
-═══════════════════════════════════════ -->
 <section class="sec-pad" style="background:#fafafa;">
     <div class="container">
         <div class="text-center mb-5">
@@ -226,9 +217,6 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     FEATURED COURSES — 6 cards
-═══════════════════════════════════════ -->
 <section class="sec-pad bg-white">
     <div class="container">
         <div class="row align-items-end mb-5">
@@ -331,9 +319,6 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     WHY EDUSKILL
-═══════════════════════════════════════ -->
 <section class="sec-pad why-sec">
     <div class="container">
         <div class="row align-items-center mb-5">
@@ -383,9 +368,6 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     TESTIMONIALS
-═══════════════════════════════════════ -->
 <section class="sec-pad" style="background:#fafafa;">
     <div class="container">
         <div class="text-center mb-5">
@@ -444,9 +426,6 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     PROVIDER CTA
-═══════════════════════════════════════ -->
 <section class="provider-cta">
     <div class="container">
         <div class="pcta-box">
