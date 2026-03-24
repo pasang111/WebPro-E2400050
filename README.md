@@ -169,10 +169,13 @@ eduskill/
 | Student dashboard | Shreeyash Pandey |
 | Course browsing | Shreeyash Pandey |
 | Enrollment request | Shreeyash Pandey |
-| My courses / status | Shreeyash Pandey |
+| My courses | Shreeyash Pandey |
+| Status | Shreeyash Pandey |
 | Provider signup | Archana Tharu |
 | Provider dashboard | Archana Tharu |
-| Add / edit / delete course | Archana Tharu |
+| Add course | Archana Tharu |
+| Edit course | Archana Tharu |
+| Delete course | Archana Tharu |
 | Course students view | Archana Tharu |
 
 ## References
