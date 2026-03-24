@@ -12,8 +12,8 @@ EduSkill is an online learning marketplace developed for the Ministry of Human R
 | Name | Role | Student ID |
 |---|---|---|
 | Pasang Lama | Team Lead | E2400050 |
-| Shreeyash Pandey | Student Module | - |
-| Archana Tharu | Provider Module | - |
+| Shreeyash Pandey | Student Module | E2300578 |
+| Archana Tharu | Provider Module | E2300555 |
 
 ## GitHub Repository
 
@@ -54,7 +54,7 @@ C:\xampp\htdocs\
 Open XAMPP Control Panel and start **Apache** and **MySQL**.
 
 ### Step 4 — Import the database
-1. Go to `http://localhost:8080/phpmyadmin`
+1. Go to `http://localhost/phpmyadmin`
 2. Click **New** and create a database named `eduskill`
 3. Click **Import** and select `database/eduskill.sql`
 4. Click **Go**
@@ -62,16 +62,17 @@ Open XAMPP Control Panel and start **Apache** and **MySQL**.
 ### Step 5 — Run the application
 Open your browser and go to:
 ```
-http://localhost:8080/eduskill/
+http://localhost/eduskill/
 ```
 
 ## User Roles & Login
+for check credential of login page:
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@eduskill.com | (create via phpmyadmin) |
-| Student | (register via signup page) | (your password) |
-| Provider | (register via signup page) | (your password) |
+| Admin | admin@eduskill.com | (password) |
+| Student | (student@eduskill.com) | (password) |
+| Provider | (tech@academy.my) | (password) |
 
 ## Main Features
 
@@ -168,10 +169,13 @@ eduskill/
 | Student dashboard | Shreeyash Pandey |
 | Course browsing | Shreeyash Pandey |
 | Enrollment request | Shreeyash Pandey |
-| My courses / status | Shreeyash Pandey |
+| My courses | Shreeyash Pandey |
+| Status | Shreeyash Pandey |
 | Provider signup | Archana Tharu |
 | Provider dashboard | Archana Tharu |
-| Add / edit / delete course | Archana Tharu |
+| Add course | Archana Tharu |
+| Edit course | Archana Tharu |
+| Delete course | Archana Tharu |
 | Course students view | Archana Tharu |
 
 ## References
