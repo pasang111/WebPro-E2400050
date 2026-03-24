@@ -1,155 +1,228 @@
+/* =============================================
+   EduSkill — archana.css
+   All provider module styles
+   Responsible: Archana Tharu
+   BIT210 Web Programming
+   ============================================= */
 
-/* Provider module colors */
-:root {
-    --provider-green: #2e7d32;
-    --provider-light: #e8f5e9;
-    --provider-dark: #1b5e20;
+/* =============================================
+   PROVIDER SIDEBAR ACCENT
+   ============================================= */
+.provider-sidebar .dsb-link.active {
+    background: rgba(249,115,22,0.15);
+    color: #f97316 !important;
 }
 
-/* 
-   PROVIDER DASHBOARD
-   */
-.provider-dashboard {
-    background-color: #f8f9fa;
-    min-height: 100vh;
-}
+/* =============================================
+   PROVIDER DASHBOARD STATS
+   ============================================= */
+.provider-stat-accent { border-left: 4px solid #f97316; }
 
-.provider-header {
-    background-color: #2e7d32;
-    color: white;
-    padding: 30px 0;
-    margin-bottom: 30px;
-}
-
-.provider-header h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.provider-header p {
-    font-size: 14px;
-    margin: 5px 0 0;
-    opacity: 0.85;
-}
-
-/* 
-   PROVIDER STAT CARDS
-  */
-.provider-stat-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 24px;
-    border: 1px solid #e8e8e8;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.provider-stat-card h3 {
-    font-size: 30px;
-    font-weight: 700;
-    color: #2e7d32;
-    margin: 0;
-}
-
-.provider-stat-card p {
-    font-size: 13px;
-    color: #666;
-    margin: 4px 0 0;
-}
-
-/* 
+/* =============================================
    COURSE MANAGEMENT TABLE
-    */
-.course-table-wrap {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 24px;
-    border: 1px solid #e8e8e8;
+   ============================================= */
+.course-mgmt-table th {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #717171;
 }
 
-.course-table-wrap .table th {
+.course-mgmt-table td { font-size: 14px; vertical-align: middle; }
+
+/* =============================================
+   COURSE STATUS BADGES (provider)
+   ============================================= */
+.course-status-active {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.course-status-pending {
+    background: #fff7ed;
+    color: #c2410c;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.course-status-rejected {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* =============================================
+   COURSE ACTION BUTTONS
+   ============================================= */
+.btn-course-edit {
+    background: #fff7ed;
+    color: #f97316;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.15s;
+}
+
+.btn-course-edit:hover { background: #fed7aa; text-decoration: none; color: #f97316; }
+
+.btn-course-delete {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.15s;
+}
+
+.btn-course-delete:hover { background: #fecaca; text-decoration: none; color: #dc2626; }
+
+/* =============================================
+   ADD COURSE FORM
+   ============================================= */
+.course-form-label {
     font-size: 13px;
     font-weight: 700;
-    color: #555;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-top: none;
-    border-bottom: 2px solid #e8e8e8;
+    color: #0f0f0f;
+    margin-bottom: 6px;
+    display: block;
 }
 
-.course-table-wrap .table td {
-    vertical-align: middle;
-    font-size: 14px;
-    color: #333;
-}
-
-/* 
-   COURSE FORM
-   */
-.course-form-card {
-    background-color: #ffffff;
+.course-form-input {
+    border: 1.5px solid #e8e8e8;
     border-radius: 10px;
-    padding: 30px;
-    border: 1px solid #e8e8e8;
-}
-
-.course-form-card .form-control {
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
     font-size: 14px;
-    height: 44px;
-    transition: border 0.2s;
+    height: 46px;
+    color: #0f0f0f;
+    background: white;
+    transition: all 0.15s;
+    width: 100%;
+    padding: 0 14px;
 }
 
-.course-form-card textarea.form-control {
-    height: auto;
-}
-
-.course-form-card .form-control:focus {
-    border-color: #2e7d32;
-    box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+.course-form-input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
     outline: none;
 }
 
-/* 
-   ACTION BUTTONS
-   */
-.btn-edit {
-    background-color: #e0ecff;
-    color: #0056d2;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 14px;
+textarea.course-form-input {
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+select.course-form-input { color: #717171; }
+
+/* =============================================
+   PROVIDER NOTICE (signup page)
+   ============================================= */
+.provider-signup-notice {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
     font-size: 13px;
-    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
 }
 
-.btn-delete {
-    background-color: #ffebee;
-    color: #c62828;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 14px;
-    font-size: 13px;
-    font-weight: 600;
+.provider-signup-notice i { color: #f97316; margin-top: 2px; flex-shrink: 0; }
+
+/* =============================================
+   COURSE STUDENTS VIEW
+   ============================================= */
+.students-table th {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #717171;
 }
 
-.btn-edit:hover {
-    background-color: #c7dcff;
+.students-table td { font-size: 14px; vertical-align: middle; }
+
+.student-email-cell { font-size: 12px; color: #717171; }
+
+/* =============================================
+   PROVIDER ADD COURSE INFO BOX
+   ============================================= */
+.add-course-info-box {
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: 14px;
+    padding: 20px;
 }
 
-.btn-delete:hover {
-    background-color: #ffcdd2;
+.add-course-info-box h6 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ea580c;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Provider notice box on signup page */
-.provider-notice {
-    background-color: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.9);
-    margin-top: 20px;
+.add-course-info-box ul     { padding-left: 0; margin: 0; list-style: none; }
+.add-course-info-box ul li  { font-size: 13px; color: #3d3d3d; margin-bottom: 10px; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px; }
+.add-course-info-box ul li i { color: #f97316; margin-top: 2px; flex-shrink: 0; font-size: 12px; }
+
+/* =============================================
+   PROVIDER DASHBOARD WELCOME
+   ============================================= */
+.provider-welcome-banner {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    border-radius: 14px;
+    padding: 24px 28px;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
 }
+
+.provider-welcome-banner::after {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+.provider-welcome-banner h4 {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 6px;
+}
+
+.provider-welcome-banner p { font-size: 14px; color: rgba(255,255,255,0.75); margin: 0; }
