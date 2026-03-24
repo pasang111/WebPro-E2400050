@@ -12,8 +12,8 @@ EduSkill is an online learning marketplace developed for the Ministry of Human R
 | Name | Role | Student ID |
 |---|---|---|
 | Pasang Lama | Team Lead | E2400050 |
-| Shreeyash Pandey | Student Module | - |
-| Archana Tharu | Provider Module | - |
+| Shreeyash Pandey | Student Module | E2300578 |
+| Archana Tharu | Provider Module | E2300555 |
 
 ## GitHub Repository
 
