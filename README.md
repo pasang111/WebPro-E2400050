@@ -54,7 +54,7 @@ C:\xampp\htdocs\
 Open XAMPP Control Panel and start **Apache** and **MySQL**.
 
 ### Step 4 — Import the database
-1. Go to `http://localhost:8080/phpmyadmin`
+1. Go to `http://localhost/phpmyadmin`
 2. Click **New** and create a database named `eduskill`
 3. Click **Import** and select `database/eduskill.sql`
 4. Click **Go**
@@ -62,7 +62,7 @@ Open XAMPP Control Panel and start **Apache** and **MySQL**.
 ### Step 5 — Run the application
 Open your browser and go to:
 ```
-http://localhost:8080/eduskill/
+http://localhost/eduskill/
 ```
 
 ## User Roles & Login
