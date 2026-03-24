@@ -66,12 +66,13 @@ http://localhost:8080/eduskill/
 ```
 
 ## User Roles & Login
+for check credential of login page:
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@eduskill.com | (create via phpmyadmin) |
-| Student | (register via signup page) | (your password) |
-| Provider | (register via signup page) | (your password) |
+| Admin | admin@eduskill.com | (password) |
+| Student | (student@eduskill.com) | (password) |
+| Provider | (tech@academy.my) | (password) |
 
 ## Main Features
 
