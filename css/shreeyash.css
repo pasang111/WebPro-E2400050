@@ -1,9 +1,13 @@
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 .student-sidebar .dsb-link.active {
     background: rgba(22,163,74,0.15);
     color: #4ade80 !important;
 }
 
+<<<<<<< Updated upstream
 
 .course-search-wrap .input-group-text {
     background: white;
@@ -29,6 +33,32 @@
     outline: none;
 }
 
+=======
+.course-search-wrap .input-group-text {
+    background: white;
+    border: 1.5px solid #e8e8e8;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    color: #9ca3af;
+}
+
+.course-search-input {
+    border: 1.5px solid #e8e8e8;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    height: 46px;
+    transition: border-color 0.15s;
+}
+
+.course-search-input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+    outline: none;
+}
+
+>>>>>>> Stashed changes
 .course-category-select {
     width: 180px;
     flex: 0 0 180px;
@@ -54,7 +84,10 @@
     margin-bottom: 24px;
 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 .enroll-status-pending {
     background: #fff7ed;
     color: #c2410c;
@@ -102,8 +135,11 @@
     align-items: center;
     gap: 4px;
 }
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 .btn-rate-course {
     background: #f97316;
     color: white !important;
@@ -137,10 +173,15 @@
 
 .btn-edit-rating:hover { background: #f97316; color: white !important; text-decoration: none; }
 
+<<<<<<< Updated upstream
 
 .course-card { transition: transform 0.25s, box-shadow 0.25s; }
 
 
+=======
+.course-card { transition: transform 0.25s, box-shadow 0.25s; }
+
+>>>>>>> Stashed changes
 .no-courses-msg {
     text-align: center;
     padding: 60px 20px;
@@ -154,10 +195,15 @@
     margin-bottom: 12px;
 }
 
+<<<<<<< Updated upstream
 
 .student-stats-row { margin-bottom: 24px; }
 
 
+=======
+.student-stats-row { margin-bottom: 24px; }
+
+>>>>>>> Stashed changes
 .my-courses-table th {
     font-size: 11px;
     font-weight: 800;
@@ -168,7 +214,10 @@
 
 .my-courses-table td { font-size: 14px; vertical-align: middle; }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 .course-avg-rating {
     display: flex;
     align-items: center;
@@ -179,3 +228,42 @@
 .course-avg-rating .stars-sm { color: #f59e0b; font-size: 12px; }
 .course-avg-rating .avg-num  { font-weight: 700; color: #0f0f0f; }
 .course-avg-rating .avg-cnt  { color: #717171; font-size: 12px; }
+<<<<<<< Updated upstream
+=======
+
+.my-courses-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-view-receipt {
+    background: #0f0f0f;
+    color: white !important;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.15s;
+}
+
+.btn-view-receipt:hover {
+    background: #f97316;
+    text-decoration: none;
+    color: white !important;
+}
+
+.my-courses-waiting {
+    font-size: 12px;
+    color: #c2410c;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+>>>>>>> Stashed changes
