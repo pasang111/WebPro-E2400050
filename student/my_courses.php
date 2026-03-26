@@ -1,7 +1,4 @@
 <?php
-// student/my_courses.php
-// Responsible: Shreeyash Pandey
-// Updated — View Receipt button for approved enrollments
 
 session_start();
 require_once '../config/database.php';

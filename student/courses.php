@@ -56,7 +56,7 @@ function getImage($title) {
     if (strpos($t,'data')!==false)                                          return '../images/datascience.jpg';
     if (strpos($t,'ui')!==false || strpos($t,'ux')!==false || strpos($t,'design')!==false) return '../images/uiuxdesign.jpg';
     if (strpos($t,'digital')!==false || strpos($t,'marketing')!==false)    return '../images/digittalmarketing.jpg';
-    if (strpos($t,'career')!==false || strpos($t,'leadership')!==false)    return '../images/carrerdevelopment.jpg';
+    if (strpos($t,'career')!==false || strpos($t,'leadership')!==false)    return '../images/careerdevelopment.jpg';
     if (strpos($t,'health')!==false)                                        return '../images/healthcaremanagement.jpg';
     if (strpos($t,'php')!==false || strpos($t,'beginner')!==false)         return '../images/webdevelopment.jpg';
     if (strpos($t,'javascript')!==false)                                    return '../images/webdevelopment.jpg';
@@ -136,15 +136,6 @@ function getStars($rating) {
             <a href="courses.php"    class="dsb-link active"><i class="fas fa-book-open"></i> Browse Courses</a>
             <a href="my_courses.php" class="dsb-link"><i class="fas fa-graduation-cap"></i> My Enrollments</a>
         </nav>
-        <div class="dark-toggle-wrap mt-3" style="padding:0 16px;">
-            <i class="fas fa-sun toggle-icon" style="color:#6b7280;font-size:13px;"></i>
-            <label class="dark-switch" style="margin:0 8px;">
-                <input type="checkbox" id="darkModeToggle">
-                <span class="dark-slider"></span>
-            </label>
-            <i class="fas fa-moon toggle-icon" style="color:#6b7280;font-size:13px;"></i>
-            <span style="font-size:12px;color:#6b7280;margin-left:4px;">Dark Mode</span>
-        </div>
         <div class="dsb-bottom">
             <div class="dsb-user-info">
                 <div class="dsb-avatar"><?php echo strtoupper(substr($student_name,0,1)); ?></div>

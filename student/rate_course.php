@@ -1,7 +1,4 @@
 <?php
-// student/rate_course.php
-// Responsible: Shreeyash Pandey
-// Star rating system — fixed with pure HTML stars
 
 session_start();
 require_once '../config/database.php';
