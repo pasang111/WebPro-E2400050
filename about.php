@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - EduSkill</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,7 +23,9 @@
                 <span class="sec-tag">About EduSkill</span>
                 <h1 class="page-hero-h">Empowering Malaysia's Workforce <em>One Course at a Time</em></h1>
                 <p class="page-hero-p">An initiative by the Ministry of Human Resources to connect learners with certified training providers across Malaysia — making upskilling simple, transparent, and accessible.</p>
-                <a href="auth/signup_student.php" class="btn-main">Join EduSkill <i class="fas fa-arrow-right ml-2"></i></a>
+                <a href="auth/signup_student.php" class="btn-main">
+                    Join EduSkill <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
             <div class="col-lg-6 mt-4 mt-lg-0">
                 <div class="about-hero-img">
@@ -48,8 +50,8 @@
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <span class="sec-tag">Our Mission</span>
                 <h2 class="sec-title">Bridging Malaysia's Skills Gap</h2>
-                <p class="text-muted mb-3">With the increasing demand for upskilling and reskilling, many professionals are seeking short courses, workshops, and certification programmes offered by local training providers.</p>
-                <p class="text-muted mb-4">EduSkill makes this simple — learners can browse courses, enroll online, and get certified by verified training providers, all through one platform.</p>
+                <p class="sec-sub mb-3">With the increasing demand for upskilling and reskilling, many professionals are seeking short courses, workshops, and certification programmes offered by local training providers.</p>
+                <p class="sec-sub mb-4">EduSkill makes this simple — learners can browse courses, enroll online, and get certified by verified training providers, all through one platform.</p>
                 <div class="mission-pts">
                     <div class="mpt"><i class="fas fa-check-circle"></i><span>All providers verified by the Ministry of Human Resources</span></div>
                     <div class="mpt"><i class="fas fa-check-circle"></i><span>Transparent enrollment and approval process</span></div>
@@ -73,7 +75,7 @@
             <div class="col-lg-4 mb-4 mb-lg-0">
                 <span class="sec-tag">Our Vision</span>
                 <h2 class="sec-title">Building a Future-Ready Malaysia</h2>
-                <p class="text-muted">We envision a Malaysia where every professional has access to quality training and certification, enabling them to thrive in the modern economy.</p>
+                <p class="sec-sub">We envision a Malaysia where every professional has access to quality training and certification, enabling them to thrive in the modern economy.</p>
             </div>
             <div class="col-lg-8">
                 <div class="row">
@@ -114,35 +116,35 @@
 <!-- VALUES -->
 <section class="sec-pad bg-white">
     <div class="container">
-        <div class="sec-head text-center mb-5">
+        <div class="text-center mb-5">
             <span class="sec-tag">Our Values</span>
             <h2 class="sec-title">What We Stand For</h2>
         </div>
         <div class="row">
             <div class="col-6 col-md-3 mb-4">
                 <div class="val-card">
-                    <div class="val-ico" style="background:#dbeafe; color:#1d4ed8;"><i class="fas fa-star"></i></div>
+                    <div class="val-ico val-ico-blue"><i class="fas fa-star"></i></div>
                     <h6>Quality Education</h6>
                     <p>Only verified, high-quality courses from approved providers.</p>
                 </div>
             </div>
             <div class="col-6 col-md-3 mb-4">
                 <div class="val-card">
-                    <div class="val-ico" style="background:#dcfce7; color:#15803d;"><i class="fas fa-universal-access"></i></div>
+                    <div class="val-ico val-ico-green"><i class="fas fa-universal-access"></i></div>
                     <h6>Accessible Learning</h6>
                     <p>Making professional training affordable and available to everyone.</p>
                 </div>
             </div>
             <div class="col-6 col-md-3 mb-4">
                 <div class="val-card">
-                    <div class="val-ico" style="background:#ffedd5; color:#c2410c;"><i class="fas fa-industry"></i></div>
+                    <div class="val-ico val-ico-orange"><i class="fas fa-industry"></i></div>
                     <h6>Industry Partnerships</h6>
                     <p>Courses developed with real industry experts and employers.</p>
                 </div>
             </div>
             <div class="col-6 col-md-3 mb-4">
                 <div class="val-card">
-                    <div class="val-ico" style="background:#fce7f3; color:#be185d;"><i class="fas fa-chart-line"></i></div>
+                    <div class="val-ico val-ico-pink"><i class="fas fa-chart-line"></i></div>
                     <h6>Career Growth</h6>
                     <p>Focused on real skills that lead to real career opportunities.</p>
                 </div>
@@ -154,8 +156,8 @@
 <!-- IMPACT -->
 <section class="impact-sec">
     <div class="container">
-        <div class="sec-head text-center mb-5">
-            <span class="sec-tag sec-tag-light">Our Impact</span>
+        <div class="text-center mb-5">
+            <span class="sec-tag sec-tag-dark">Our Impact</span>
             <h2 class="sec-title sec-title-white">EduSkill by the Numbers</h2>
         </div>
         <div class="row justify-content-center">
