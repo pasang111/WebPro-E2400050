@@ -65,6 +65,9 @@ $total_courses    = 45;
             <a href="manage_courses.php" class="dsb-link">
                 <i class="fas fa-book-open"></i> Courses
             </a>
+            <a href="analytics.php" class="dsb-link">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
         </nav>
 
         <div class="dsb-bottom">
