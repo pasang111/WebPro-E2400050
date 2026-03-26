@@ -97,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <?php if (!$success): ?>
-            <form method="POST" action="" id="studentSignupForm">
+            <!-- ✅ FIXED: Removed id="studentSignupForm" to prevent JS from blocking submission -->
+            <form method="POST" action="">
                 <div class="form-group">
                     <label class="fl">Full Name <span class="text-danger">*</span></label>
                     <div class="fi-wrap">
