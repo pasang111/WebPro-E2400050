@@ -1,3 +1,4 @@
+/*---pasang Lama---*/
 <?php
 ?>
 <!DOCTYPE html>
