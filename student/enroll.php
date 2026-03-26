@@ -13,6 +13,32 @@ $course_id    = intval($_GET['id'] ?? 0);
 $success      = '';
 $error        = '';
 
+// Verify the student_id actually exists in the students table
+$verify = mysqli_prepare($conn, "SELECT id FROM students WHERE id = ?");
+mysqli_stmt_bind_param($verify, 'i', $student_id);
+mysqli_stmt_execute($verify);
+mysqli_stmt_store_result($verify);
+if (mysqli_stmt_num_rows($verify) === 0) {
+    // Session user_id doesn't match students table — try looking up by email
+    if (!empty($_SESSION['user_email'])) {
+        $lookup = mysqli_prepare($conn, "SELECT id FROM students WHERE email = ?");
+        mysqli_stmt_bind_param($lookup, 's', $_SESSION['user_email']);
+        mysqli_stmt_execute($lookup);
+        $lookup_result = mysqli_stmt_get_result($lookup);
+        $lookup_row = mysqli_fetch_assoc($lookup_result);
+        if ($lookup_row) {
+            $student_id = $lookup_row['id'];
+            $_SESSION['user_id'] = $student_id; // Fix the session for future requests
+        } else {
+            session_destroy();
+            header('Location: ../auth/login.php'); exit();
+        }
+    } else {
+        session_destroy();
+        header('Location: ../auth/login.php'); exit();
+    }
+}
+
 // Get course from database
 $stmt = mysqli_prepare($conn, "SELECT c.*, p.org_name as provider_name FROM courses c JOIN providers p ON c.provider_id = p.id WHERE c.id = ? AND c.status = 'approved'");
 mysqli_stmt_bind_param($stmt, 'i', $course_id);
