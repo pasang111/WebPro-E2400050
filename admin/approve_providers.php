@@ -70,6 +70,9 @@ $pending_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FR
             </a>
             <a href="approve_enrollments.php" class="dsb-link"><i class="fas fa-user-check"></i> Enrollments</a>
             <a href="manage_courses.php" class="dsb-link"><i class="fas fa-book-open"></i> Courses</a>
+                <a href="analytics.php" class="dsb-link">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
         </nav>
         <div class="dsb-bottom">
             <a href="../auth/logout.php" class="dsb-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

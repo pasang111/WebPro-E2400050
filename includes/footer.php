@@ -1,6 +1,4 @@
 <?php
-// includes/footer.php
-// Responsible: Pasang Lama (Team Lead)
 ?>
 <footer class="eduskill-footer">
     <div class="container">
