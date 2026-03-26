@@ -61,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="add_course.php" class="dsb-link active"><i class="fas fa-plus-circle"></i> Add Course</a>
             <a href="edit_course.php" class="dsb-link"><i class="fas fa-edit"></i> Manage Courses</a>
             <a href="course_students.php" class="dsb-link"><i class="fas fa-users"></i> Enrolled Students</a>
+                <a href="analytics.php" class="dsb-link">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
         </nav>
         <div class="dsb-bottom">
             <div class="dsb-user-info">

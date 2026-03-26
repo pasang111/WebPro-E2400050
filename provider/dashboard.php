@@ -25,7 +25,7 @@ $courses_result = mysqli_query($conn, "SELECT c.*, (SELECT COUNT(*) FROM enrollm
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Provider Dashboard - EduSkill</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pasang.css">
@@ -49,6 +49,9 @@ $courses_result = mysqli_query($conn, "SELECT c.*, (SELECT COUNT(*) FROM enrollm
             <a href="course_students.php" class="dsb-link"><i class="fas fa-users"></i> Enrolled Students
                 <?php if($pending_enrollments > 0): ?><span class="dsb-badge"><?php echo $pending_enrollments; ?></span><?php endif; ?>
             </a>
+                <a href="analytics.php" class="dsb-link">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
         </nav>
         <div class="dsb-bottom">
             <div class="dsb-user-info">
@@ -70,6 +73,7 @@ $courses_result = mysqli_query($conn, "SELECT c.*, (SELECT COUNT(*) FROM enrollm
             </div>
         </div>
 
+        <div class="dash-content">
         <div class="row mb-4">
             <div class="col-6 col-lg-3 mb-3">
                 <div class="dstat-card">
@@ -135,6 +139,7 @@ $courses_result = mysqli_query($conn, "SELECT c.*, (SELECT COUNT(*) FROM enrollm
                 </table>
             </div>
         </div>
+        </div><!-- end dash-content -->
     </main>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
