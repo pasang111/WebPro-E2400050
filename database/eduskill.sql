@@ -106,14 +106,4 @@ INSERT IGNORE INTO ratings (student_id, course_id, rating, review) VALUES
 (3, 1, 4, 'Great content but could use more exercises.'),
 (4, 2, 5, 'Loved every module. The instructor explains clearly.');
 
--- added database for rating table
-CREATE TABLE ratings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT NOT NULL,
-    course_id INT NOT NULL,
-    rating INT NOT NULL,
-    review TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    
-    UNIQUE KEY unique_rating (student_id, course_id)
-);
+
