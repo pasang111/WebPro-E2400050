@@ -1,7 +1,7 @@
 # EduSkill Marketplace System
 
 **BIT210 Web Programming Project**
-**Semester 3, 2023**
+**Semester 5, 2026**
 
 ## Project Overview
 
