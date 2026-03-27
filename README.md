@@ -49,6 +49,7 @@ Move the `eduskill` folder into:
 ```
 C:\xampp\htdocs\
 ```
+You will see the file name will be WebPro-E2400050 rename it to eduskill.
 
 ### Step 3 — Start XAMPP
 Open XAMPP Control Panel and start **Apache** and **MySQL**.
@@ -57,7 +58,9 @@ Open XAMPP Control Panel and start **Apache** and **MySQL**.
 1. Go to `http://localhost/phpmyadmin`
 2. Click **New** and create a database named `eduskill`
 3. Click **Import** and select `database/eduskill.sql`
-4. Click **Go**
+4. if the rating does not show import another sql which is given below...
+5. Click **Import** and select '' database/rating.sql`
+6. Click **Go**
 
 ### Step 5 — Run the application
 Open your browser and go to:
