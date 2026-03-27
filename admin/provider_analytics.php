@@ -10,13 +10,13 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'provider') {
 $provider_id   = $_SESSION['user_id'];
 $provider_name = $_SESSION['user_name'] ?? 'Provider';
 
-// ── PROVIDER STATS ─────────────────────────
-$total_courses      = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM courses WHERE provider_id=$provider_id AND status='approved'"))['c'];
-$total_enrollments  = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id"))['c'];
-$approved_enroll    = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id AND e.status='approved'"))['c'];
-$pending_enroll     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id AND e.status='pending'"))['c'];
+// ── PROVIDER STATS 
+$total_courses     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM courses WHERE provider_id=$provider_id AND status='approved'"))['c'];
+$total_enrollments = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id"))['c'];
+$approved_enroll   = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id AND e.status='approved'"))['c'];
+$pending_enroll    = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as c FROM enrollments e JOIN courses c ON e.course_id=c.id WHERE c.provider_id=$provider_id AND e.status='pending'"))['c'];
 
-// ── ENROLLMENTS PER COURSE ─────────────────
+// ── ENROLLMENTS PER COURSE 
 $courses_result = mysqli_query($conn, "
     SELECT
         c.id,
@@ -34,6 +34,17 @@ $courses_result = mysqli_query($conn, "
     ORDER BY total_enrollments DESC
 ");
 
+// Build chart data before table loop consumes the result pointer
+$chart_labels = [];
+$chart_data   = [];
+$courses_rows = [];
+while ($row = mysqli_fetch_assoc($courses_result)) {
+    $courses_rows[]  = $row;
+    $chart_labels[]  = $row['title'];
+    $chart_data[]    = (int)$row['total_enrollments'];
+}
+
+// For the sidebar badge — provider sidebar is inline below, not admin sidebar
 $pending_enrollments_sidebar = $pending_enroll;
 ?>
 <!DOCTYPE html>
@@ -47,13 +58,12 @@ $pending_enrollments_sidebar = $pending_enroll;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pasang.css">
-    <link rel="stylesheet" href="../css/archana.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body class="dashboard-body">
 <div class="dashboard-wrap">
 
-    <!-- SIDEBAR -->
+    <!-- PROVIDER SIDEBAR (inline — provider role has different nav items to admin) -->
     <aside class="dash-sidebar provider-sidebar">
         <div class="dsb-brand">
             <a href="../index.php">
@@ -61,23 +71,31 @@ $pending_enrollments_sidebar = $pending_enroll;
                 <span class="dsb-brand-text ml-2">EDU<span class="dsb-brand-accent">SKILL</span></span>
             </a>
         </div>
+
         <div class="dsb-role-badge provider-role-badge">
             <i class="fas fa-building mr-2"></i> Training Provider
         </div>
+
         <nav class="dsb-nav">
-            <a href="dashboard.php"      class="dsb-link"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="add_course.php"     class="dsb-link"><i class="fas fa-plus-circle"></i> Add Course</a>
-            <a href="edit_course.php"    class="dsb-link"><i class="fas fa-edit"></i> Manage Courses</a>
+            <a href="dashboard.php"       class="dsb-link"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="add_course.php"      class="dsb-link"><i class="fas fa-plus-circle"></i> Add Course</a>
+            <a href="edit_course.php"     class="dsb-link"><i class="fas fa-edit"></i> Manage Courses</a>
             <a href="course_students.php" class="dsb-link">
                 <i class="fas fa-users"></i> Enrolled Students
-                <?php if($pending_enrollments_sidebar > 0): ?><span class="dsb-badge"><?php echo $pending_enrollments_sidebar; ?></span><?php endif; ?>
+                <?php if ($pending_enrollments_sidebar > 0): ?>
+                    <span class="dsb-badge"><?php echo $pending_enrollments_sidebar; ?></span>
+                <?php endif; ?>
             </a>
-            <a href="analytics.php"      class="dsb-link active"><i class="fas fa-chart-bar"></i> My Analytics</a>
+            <a href="analytics.php" class="dsb-link active"><i class="fas fa-chart-bar"></i> My Analytics</a>
         </nav>
+
         <div class="dsb-bottom">
             <div class="dsb-user-info">
-                <div class="dsb-avatar provider-avatar"><?php echo strtoupper(substr($provider_name,0,1)); ?></div>
-                <div><strong><?php echo htmlspecialchars($provider_name); ?></strong><span>Provider</span></div>
+                <div class="dsb-avatar provider-avatar"><?php echo strtoupper(substr($provider_name, 0, 1)); ?></div>
+                <div>
+                    <strong><?php echo htmlspecialchars($provider_name); ?></strong>
+                    <span>Provider</span>
+                </div>
             </div>
             <a href="../auth/logout.php" class="dsb-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
@@ -128,7 +146,7 @@ $pending_enrollments_sidebar = $pending_enroll;
                 <div class="dash-card-head">
                     <h5><i class="fas fa-chart-bar mr-2"></i>Enrollments Per Course</h5>
                 </div>
-                <div class="analytics-chart-body" style="padding:20px;">
+                <div class="analytics-chart-body">
                     <canvas id="providerChart"></canvas>
                 </div>
             </div>
@@ -155,15 +173,11 @@ $pending_enrollments_sidebar = $pending_enroll;
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $rank = 1;
-                            $chart_labels = [];
-                            $chart_data   = [];
-                            mysqli_data_seek($courses_result, 0);
-                            while ($c = mysqli_fetch_assoc($courses_result)):
+                            <?php if (empty($courses_rows)): ?>
+                            <tr><td colspan="9" class="text-center text-muted py-4">No course data yet.</td></tr>
+                            <?php else: ?>
+                            <?php $rank = 1; foreach ($courses_rows as $c):
                                 $pct = $c['total_enrollments'] > 0 ? round(($c['approved'] / $c['total_enrollments']) * 100) : 0;
-                                $chart_labels[] = $c['title'];
-                                $chart_data[]   = $c['total_enrollments'];
                             ?>
                             <tr>
                                 <td><?php echo $rank++; ?></td>
@@ -183,9 +197,7 @@ $pending_enrollments_sidebar = $pending_enroll;
                                     </div>
                                 </td>
                             </tr>
-                            <?php endwhile; ?>
-                            <?php if (mysqli_num_rows($courses_result) == 0): ?>
-                            <tr><td colspan="9" class="text-center text-muted py-4">No course data yet.</td></tr>
+                            <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>
